@@ -6,3 +6,5 @@ export const athleteRoutes = express.Router();
 athleteRoutes.get("/", AthleteController.getAll);
 athleteRoutes.get("/:id", AthleteController.getOne);
 athleteRoutes.post("/", AthleteController.create);
+athleteRoutes.put("/", AthleteController.update);
+athleteRoutes.delete("/:id", AthleteController.delete);

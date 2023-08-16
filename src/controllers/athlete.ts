@@ -49,4 +49,46 @@ export class AthleteController {
       res.status(500).json(error).end();
     }
   }
+
+  static async update(req: Request, res: Response) {
+    /* CREATE EXAMPLE
+    {
+      "id": "recZxC8TGMEbyEFjd"
+      "fields": {
+          "identifier": 26082103,
+          "third_place": 0,
+          "second_place": 0,
+          "email": "wendyhurtado95@gmail.com",
+          "first_name": "Wendy updated",
+          "gender": "female",
+          "date_of_bird": "1995-04-19",
+          "phone": "04123598711",
+          "disability": "No posee",
+          "address": "Cotoperíz",
+          "last_name": "Hurtado",
+          "first_place": 0,
+          "belt_id": ["reclwDvP3dFCOyvj8"]
+      }
+  }
+  */
+
+    try {
+      const { fields, id } = req.body;
+      console.log({ id, fields });
+      const response = await AthleteModel.update({ id, fields });
+      res.json(response);
+    } catch (error) {
+      res.status(500).json(error).end();
+    }
+  }
+
+  static async delete(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+      const response = await AthleteModel.delete(id);
+      res.json(response);
+    } catch (error) {
+      res.status(500).json(error).end();
+    }
+  }
 }
