@@ -5,3 +5,4 @@ export const athleteRoutes = express.Router();
 
 athleteRoutes.get("/", AthleteController.getAll);
 athleteRoutes.get("/:id", AthleteController.getOne);
+athleteRoutes.post("/", AthleteController.create);

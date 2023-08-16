@@ -2,10 +2,13 @@ import { Athlete } from "./../interfaces/athlete";
 import { AirtableService } from "../services/airtable";
 
 export class AthleteModel {
-  static async getAll(): Promise<Athlete[]> {
+  static getAll(): Promise<Athlete[]> {
     return AirtableService.getAll<Athlete>({ table: "students" });
   }
-  static async getOne(uuid: string): Promise<Athlete> {
+  static getOne(uuid: string): Promise<Athlete> {
     return AirtableService.getOne({ uuid, table: "students" });
+  }
+  static create(fields: Athlete[]): Promise<Athlete[]> {
+    return AirtableService.create({ fields, table: "students" });
   }
 }

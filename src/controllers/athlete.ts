@@ -20,4 +20,33 @@ export class AthleteController {
       res.status(404).end();
     }
   }
+  static async create(req: Request, res: Response) {
+    /* CREATE EXAMPLE
+    {
+      "fields": {
+          "identifier": 26082103,
+          "third_place": 0,
+          "second_place": 0,
+          "email": "wendyhurtado95@gmail.com",
+          "first_name": "Wendy",
+          "gender": "female",
+          "date_of_bird": "1995-04-19",
+          "phone": "04123598711",
+          "disability": "No posee",
+          "address": "Cotoperíz",
+          "last_name": "Hurtado",
+          "first_place": 0,
+          "belt_id": ["reclwDvP3dFCOyvj8"]
+      }
+  }
+  */
+
+    try {
+      const { fields } = req.body;
+      const response = await AthleteModel.create(fields);
+      res.json(response);
+    } catch (error) {
+      res.status(500).json(error).end();
+    }
+  }
 }
