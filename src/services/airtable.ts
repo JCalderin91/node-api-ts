@@ -1,3 +1,5 @@
+import { removeFinishWith } from "../helpers/objectTools";
+
 require("dotenv").config();
 var Airtable = require("airtable");
 var base = new Airtable({
@@ -20,11 +22,14 @@ export const AirtableService: AirtableServiceInterface = {
         all.firstPage((error: any, records: any[]) => {
           if (error) reject(error);
           const response: any[] = records.map((record: any) => {
-            return {
-              uuid: record._rawJson.id,
-              ...record._rawJson.fields,
-              createdTime: record._rawJson.createdTime,
-            };
+            return removeFinishWith(
+              {
+                uuid: record._rawJson.id,
+                ...record._rawJson.fields,
+                createdTime: record._rawJson.createdTime,
+              },
+              "_id"
+            );
           });
           resolve(response);
         });
@@ -38,11 +43,15 @@ export const AirtableService: AirtableServiceInterface = {
       try {
         base(table).find(uuid, (err: any, record: any) => {
           if (err) return reject(err);
-          resolve({
-            uuid: record._rawJson.id,
-            ...record._rawJson.fields,
-            createdTime: record._rawJson.createdTime,
-          });
+          const response = removeFinishWith(
+            {
+              uuid: record._rawJson.id,
+              ...record._rawJson.fields,
+              createdTime: record._rawJson.createdTime,
+            },
+            "_id"
+          );
+          resolve(response as any);
         });
       } catch (error) {
         reject(error);
