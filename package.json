@@ -4,6 +4,8 @@
   "description": "a simple node api with typescript",
   "main": "index.js",
   "scripts": {
+    "build": "npx tsc",
+    "start": "node dist/index.js",
     "dev": "ts-node-dev --respawn --pretty --transpile-only src/index.ts"
   },
   "keywords": [
