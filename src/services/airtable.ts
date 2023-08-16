@@ -37,7 +37,7 @@ export const AirtableService: AirtableServiceInterface = {
     return new Promise((resolve, reject) => {
       try {
         base(table).find(uuid, (err: any, record: any) => {
-          if (err) reject(err);
+          if (err) return reject(err);
           resolve({
             uuid: record._rawJson.id,
             ...record._rawJson.fields,
