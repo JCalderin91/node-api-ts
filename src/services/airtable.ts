@@ -1,8 +1,8 @@
+require("dotenv").config();
 var Airtable = require("airtable");
 var base = new Airtable({
-  apiKey:
-    "pat65psXM2GCuo7Iq.089eb19a0aaa5c6642bf07e6e4646e092cf3f5616a9c1aaff22603f48591d1fd",
-}).base("app9RRnQpCXoxhcAa");
+  apiKey: process.env.AIRTABLE_APIKEY,
+}).base(process.env.AIRTABLE_BASE);
 
 interface AirtableServiceInterface {
   getAll<T>({ table }: { table: string }): Promise<T[]>;
@@ -18,9 +18,13 @@ export const AirtableService: AirtableServiceInterface = {
       try {
         all.firstPage((error: any, records: any[]) => {
           if (error) reject(error);
-          const response: any[] = records.map(
-            ({ fields }: { fields: any }) => fields
-          );
+          const response: any[] = records.map((record: any) => {
+            return {
+              uuid: record._rawJson.id,
+              ...record._rawJson.fields,
+              createdTime: record._rawJson.createdTime,
+            };
+          });
           resolve(response);
         });
       } catch (error) {
