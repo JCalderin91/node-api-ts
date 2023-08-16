@@ -14,7 +14,7 @@ export class AthleteModel {
   static update(payload: { id: string; fields: Athlete }): Promise<Athlete> {
     return AirtableService.put({ payload, table: "students" });
   }
-  static delete(id: string): Promise<Athlete[]> {
+  static delete(id: string): Promise<string[]> {
     return AirtableService.delete({ id, table: "students" });
   }
 }

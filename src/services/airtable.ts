@@ -12,7 +12,7 @@ interface AirtableServiceInterface {
   getOne<T>({ id, table }: { id: string; table: string }): Promise<T>;
   create<T>({ fields, table }: { fields: T[]; table: string }): Promise<T[]>;
   put<T>({ payload, table }: { payload: any; table: string }): Promise<T>;
-  delete<T>({ id, table }: { id: string; table: string }): Promise<T[]>;
+  delete<T>({ id, table }: { id: string; table: string }): Promise<string[]>;
 }
 
 export const AirtableService: AirtableServiceInterface = {
@@ -110,11 +110,7 @@ export const AirtableService: AirtableServiceInterface = {
       try {
         base(table).destroy([id], (err: any, records: any) => {
           if (err) reject(err);
-          console.log({ records });
-          const response: any[] = records.map((record: any) => {
-            return record.id;
-          });
-          resolve(response as any);
+          resolve([id]);
         });
       } catch (error) {
         reject(error);
