@@ -5,4 +5,7 @@ export class AthleteModel {
   static async getAll(): Promise<Athlete[]> {
     return AirtableService.getAll<Athlete>({ table: "students" });
   }
+  static async getOne(uuid: string): Promise<Athlete> {
+    return AirtableService.getOne({ uuid, table: "students" });
+  }
 }

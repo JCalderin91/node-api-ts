@@ -6,6 +6,7 @@ var base = new Airtable({
 
 interface AirtableServiceInterface {
   getAll<T>({ table }: { table: string }): Promise<T[]>;
+  getOne<T>({ uuid, table }: { uuid: string; table: string }): Promise<T>;
 }
 
 export const AirtableService: AirtableServiceInterface = {
@@ -26,6 +27,22 @@ export const AirtableService: AirtableServiceInterface = {
             };
           });
           resolve(response);
+        });
+      } catch (error) {
+        reject(error);
+      }
+    });
+  },
+  getOne: <T>({ uuid, table }: { uuid: string; table: string }): Promise<T> => {
+    return new Promise((resolve, reject) => {
+      try {
+        base(table).find(uuid, (err: any, record: any) => {
+          if (err) reject(err);
+          resolve({
+            uuid: record._rawJson.id,
+            ...record._rawJson.fields,
+            createdTime: record._rawJson.createdTime,
+          });
         });
       } catch (error) {
         reject(error);
