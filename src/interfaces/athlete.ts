@@ -1,19 +1,19 @@
 export interface Athlete {
-  id: number;
-  email?: string;
-  first_name: string;
-  identity_number: string;
-  belt_id?: string[];
-  gender: string;
-  organization_id?: string[];
-  category_id?: string[];
+  id: string;
+  identifier: number;
   date_of_bird: string;
-  phone?: string;
-  disability: string;
-  address: string;
+  gender: string;
   last_name: string;
-  belt?: string[];
-  categories?: string[];
-  "name (from organization_id)"?: string[];
-  created_at: string;
+  address: string;
+  disability: string;
+  email: string;
+  phone: string;
+  first_name: string;
+  first_place: number;
+  second_place: number;
+  third_place: number;
+  belt: string[];
+  notes: string;
+  categories: string[];
+  createdTime: string;
 }

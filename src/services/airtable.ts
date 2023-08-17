@@ -1,4 +1,3 @@
-import { Athlete } from "./../interfaces/athlete";
 import { removeFinishWith } from "../helpers/objectTools";
 
 require("dotenv").config();
