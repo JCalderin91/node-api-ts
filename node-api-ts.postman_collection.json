@@ -1,0 +1,107 @@
+{
+	"info": {
+		"_postman_id": "cb62787b-7f0e-4655-8b33-cbbcd0b42c74",
+		"name": "node-api-ts",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "17218965"
+	},
+	"item": [
+		{
+			"name": "list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{url_base}}/athletes"
+			},
+			"response": []
+		},
+		{
+			"name": "create",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.environment.set(\"athlete_id\", jsonData.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"fields\": {\r\n    \"identifier\": 26082103,\r\n    \"third_place\": 0,\r\n    \"second_place\": 0,\r\n    \"email\": \"wendyhurtado95@gmail.com\",\r\n    \"first_name\": \"Wendy\",\r\n    \"gender\": \"female\",\r\n    \"date_of_bird\": \"1995-04-19\",\r\n    \"phone\": \"04123598711\",\r\n    \"disability\": \"No posee\",\r\n    \"address\": \"Cotoperíz\",\r\n    \"last_name\": \"Hurtado\",\r\n    \"first_place\": 0,\r\n    \"belt_id\": [\r\n      \"reclwDvP3dFCOyvj8\"\r\n    ]\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{url_base}}/athletes"
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"{{athlete_id}}\",\r\n  \"fields\": {\r\n    \"identifier\": 26082103,\r\n    \"third_place\": 0,\r\n    \"second_place\": 0,\r\n    \"email\": \"wendyhurtado95@gmail.com\",\r\n    \"first_name\": \"Wendy updatedssssss\",\r\n    \"gender\": \"female\",\r\n    \"date_of_bird\": \"1995-04-19\",\r\n    \"phone\": \"04123598711\",\r\n    \"disability\": \"No posee\",\r\n    \"address\": \"Cotoperíz\",\r\n    \"last_name\": \"Hurtado\",\r\n    \"first_place\": 0,\r\n    \"belt_id\": [\r\n      \"reclwDvP3dFCOyvj8\"\r\n    ]\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{url_base}}/athletes"
+			},
+			"response": []
+		},
+		{
+			"name": "get",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{url_base}}/athletes/{{athlete_id}}"
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "{{url_base}}/athletes/{{athlete_id}}"
+			},
+			"response": []
+		}
+	]
+}
