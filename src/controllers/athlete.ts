@@ -74,7 +74,6 @@ export class AthleteController {
 
     try {
       const { fields, id } = req.body;
-      console.log({ id, fields });
       const response = await AthleteModel.update({ id, fields });
       res.json(response);
     } catch (error) {

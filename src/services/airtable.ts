@@ -23,8 +23,8 @@ export const AirtableService: AirtableServiceInterface = {
     });
     return new Promise((resolve, reject) => {
       try {
-        all.firstPage((error: any, records: any[]) => {
-          if (error) reject(error);
+        all.firstPage((err: any, records: any[]) => {
+          if (err || !records) reject(err);
           const response: any[] = records.map((record: any) => {
             return removeFinishWith(
               {
@@ -46,7 +46,7 @@ export const AirtableService: AirtableServiceInterface = {
     return new Promise((resolve, reject) => {
       try {
         base(table).find(id, (err: any, record: any) => {
-          if (err) return reject(err);
+          if (err || !record) return reject(err);
           const response = removeFinishWith(
             {
               id: record._rawJson.id,
@@ -66,7 +66,7 @@ export const AirtableService: AirtableServiceInterface = {
     return new Promise((resolve, reject) => {
       try {
         base(table).create(fields, (err: any, record: any) => {
-          if (err) return reject(err);
+          if (err || !record) return reject(err);
           const response = removeFinishWith(
             {
               id: record._rawJson.id,
@@ -85,9 +85,8 @@ export const AirtableService: AirtableServiceInterface = {
   put: <T>({ payload, table }: { payload: T; table: string }) => {
     return new Promise((resolve, reject) => {
       try {
-        console.log({ payload });
         base(table).update([payload], (err: any, records: any) => {
-          if (err) reject(err);
+          if (err) return reject(err);
           const response: any[] = records.map((record: any) => {
             return removeFinishWith(
               {
