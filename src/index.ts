@@ -37,10 +37,10 @@ app.use(express.json());
  */
 
 app.listen(PORT, () => {
-  console.log(`Listening on port ${PORT}`);
+  console.log(`Server running on http://localhost:${PORT}`);
 });
 
 app.use("/athletes", athleteRoutes);
 app.get("/", (req, res) => {
-  res.json({ hello: "hello world" });
+  res.json({ name: "node-api-ts", status: 200 });
 });

@@ -11,7 +11,7 @@ interface AirtableServiceInterface {
   getOne<T>({ id, table }: { id: string; table: string }): Promise<T>;
   create<T>({ fields, table }: { fields: T[]; table: string }): Promise<T[]>;
   put<T>({ payload, table }: { payload: any; table: string }): Promise<T>;
-  delete<T>({ id, table }: { id: string; table: string }): Promise<string[]>;
+  delete({ id, table }: { id: string; table: string }): Promise<Record<string, string>>;
 }
 
 export const AirtableService: AirtableServiceInterface = {
@@ -34,7 +34,7 @@ export const AirtableService: AirtableServiceInterface = {
               "_id"
             );
           });
-          resolve(response);
+          resolve(response as T[]);
         });
       } catch (error) {
         reject(error);
@@ -54,7 +54,7 @@ export const AirtableService: AirtableServiceInterface = {
             },
             "_id"
           );
-          resolve(response as any);
+          resolve(response as T);
         });
       } catch (error) {
         reject(error);
@@ -85,7 +85,7 @@ export const AirtableService: AirtableServiceInterface = {
     return new Promise((resolve, reject) => {
       try {
         base(table).update([payload], (err: any, records: any) => {
-          if (err) return reject(err);
+          if (err || !records) return reject(err);
           const response: any[] = records.map((record: any) => {
             return removeFinishWith(
               {
@@ -103,12 +103,12 @@ export const AirtableService: AirtableServiceInterface = {
       }
     });
   },
-  delete: <T>({ id, table }: { id: string; table: string }) => {
+  delete: ({ id, table }: { id: string; table: string }) => {
     return new Promise((resolve, reject) => {
       try {
         base(table).destroy([id], (err: any, records: any) => {
-          if (err) reject(err);
-          resolve([id]);
+          if (err || !records) return reject(err);
+          resolve({deletedRecordId: id});
         });
       } catch (error) {
         reject(error);
